@@ -9,11 +9,9 @@ import os
 
 with open("README.txt","r") as f:
     README=f.read()
-    
- 
-swmm5_module = Extension('_epanet2',
-                           sources=[ "epanettools"+os.sep+"epanet"+os.sep+x for x in ["epanet.c",
-                               "epanet2_wrap.c",
+	
+
+sources=[ "epanettools"+os.sep+"epanet"+os.sep+x for x in ["epanet.c",
                                "hash.c",
                                "hydraul.c",
                                "inpfile.c",
@@ -27,6 +25,10 @@ swmm5_module = Extension('_epanet2',
                                "rules.c",
                                "smatrix.c"                          
                                      ]]
+sources.append("epanettools"+os.sep+"epanet2_wrap.c")
+ 
+epanet2_module = Extension('_epanet2',
+                           sources=sources
                            )
 
 
@@ -35,18 +37,20 @@ EXTS=["inp", "py"]
 EXTS.extend([x.upper() for x in EXTS])
 EXAMPLES=list(product(EXAMPLES,EXTS))
 package_data=[ "examples/"+x[0]+"/*."+x[1] for x in EXAMPLES]
-print package_data
 NAME='EPANETTOOLS'
-VERSION='0.2.2.0'
+VERSION='0.2.3.0'
 SETUPNAME=NAME+"-"+VERSION
 LICENSE=u"GNU General Public License version 3"
 LONGDISC="""Python interface for the popular urban drainage model EPANET 2.0 engine. 
 EPANET2 is realeased by United States Environmental Protection Agency to public domain. 
-This python package is copyrighted by Assela Pathirana and released under %(lc)s. \n\n 
-README.txt\n
-----------\n
-%(rm)s\n
-----------\n
+This python package is copyrighted by Assela Pathirana and released under %(lc)s. 
+
+==========
+README.txt
+==========
+
+%(rm)s
+
 """ % {"lc": LICENSE, "rm": README}
 CLASSIFY=[
         "Programming Language :: Python",
@@ -59,20 +63,20 @@ CLASSIFY=[
         "Operating System :: POSIX",
         "Operating System :: Microsoft :: Windows",
         "Topic :: Software Development :: Libraries :: Python Modules",
-        "Development Status :: 4 - Beta",
+        "Development Status :: 3 - Alpha",
         "Natural Language :: English"
         ]
 setup (name = NAME,
        version = VERSION,
        author      = "Assela Pathirana",
        author_email = "assela@pathirana.net",
-       description = """SWMM5  calls from python""",       
+       description = """EPANET 2.0  calls from python""",       
        packages = ["epanettools"],
-       package_data={'': package_data},
-       ext_modules = [swmm5_module],
+	   ext_modules = [epanet2_module],
+       package_data={'epanettools': package_data},
        license=LICENSE,
-       url=u"http://assela.pathirana.net/SWMM5-Python",
-       download_url="http://swmm5-ea.googlecode.com/files/"+SETUPNAME+".zip",
+       url=u"http://assela.pathirana.net/EPANET-Python",
+       #download_url="http://swmm5-ea.googlecode.com/files/"+SETUPNAME+".zip",
        long_description = LONGDISC, 
        classifiers=CLASSIFY
        )
