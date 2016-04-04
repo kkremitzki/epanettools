@@ -1,4 +1,4 @@
-
+from __future__ import print_function
 import time
 import sys
 # To change this template, choose Tools | Templates
@@ -9,25 +9,25 @@ __date__ ="$Sep 30, 2011 12:59:16 PM$"
 
 def err(e):
     if(e>0):
-        print e, et.ENgeterror(e,25)
+        print(e, et.ENgeterror(e,25))
         exit(5)
 
 
 if __name__ == "__main__":
 
-    
+
     from epanettools import epanet2 as et
     ret=et.ENopen("Net3.inp","Net3.rpt","")
     err(ret)
     ret,result=et.ENgetcount(et.EN_LINKCOUNT)
     err(ret)
-    print "Network has " , result, " links."
+    print("Network has ", result, " links.")
     ret,result=et.ENgetcount(et.EN_NODECOUNT)
     err(ret)
-    print "Network has " , result, " nodes."
+    print("Network has ", result, " nodes.")
     node='105'
     ret,index=et.ENgetnodeindex(node)
-    print "Node " , node , " has index : ", index 
+    print("Node ", node, " has index : ", index )
 
     ret,nnodes=et.ENgetcount(et.EN_NODECOUNT)
     nodes=[]
@@ -39,7 +39,7 @@ if __name__ == "__main__":
             t=[]
             pres.append(t)
 
-    print nodes
+    print(nodes)
     err(et.ENopenH())
     err(et.ENinitH(0))
     while True :
@@ -55,7 +55,7 @@ if __name__ == "__main__":
         if (tstep<=0):
             break;
     ret=et.ENcloseH();
-    print ""
+    print("")
     import matplotlib
     matplotlib.use("QT4Agg")
     import matplotlib.pyplot as plt
@@ -64,5 +64,5 @@ if __name__ == "__main__":
         plt.plot(time,pres[i], label=nodes[i])
 
     plt.legend(loc=1, bbox_to_anchor=(1,1))
-    
+
     plt.show()
