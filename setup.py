@@ -9,7 +9,7 @@ import os
 
 with open("README.txt","r") as f:
     README=f.read()
-	
+
 
 sources=[ "epanettools"+os.sep+"epanet"+os.sep+x for x in ["epanet.c",
                                "hash.c",
@@ -23,10 +23,10 @@ sources=[ "epanettools"+os.sep+"epanet"+os.sep+x for x in ["epanet.c",
                                "quality.c",
                                "report.c",
                                "rules.c",
-                               "smatrix.c"                          
+                               "smatrix.c"
                                      ]]
-sources.append("epanettools"+os.sep+"epanet2_wrap.c")
- 
+sources.append("epanettools"+os.sep+"epanet"+os.sep+"epanet2_wrap.c")
+
 epanet2_module = Extension('_epanet2',
                            sources=sources
                            )
@@ -41,9 +41,9 @@ NAME='EPANETTOOLS'
 VERSION='0.2.3.0'
 SETUPNAME=NAME+"-"+VERSION
 LICENSE=u"GNU General Public License version 3"
-LONGDISC="""Python interface for the popular urban drainage model EPANET 2.0 engine. 
-EPANET2 is realeased by United States Environmental Protection Agency to public domain. 
-This python package is copyrighted by Assela Pathirana and released under %(lc)s. 
+LONGDISC="""Python interface for the popular urban drainage model EPANET 2.0 engine.
+EPANET2 is realeased by United States Environmental Protection Agency to public domain.
+This python package is copyrighted by Assela Pathirana and released under %(lc)s.
 
 ==========
 README.txt
@@ -70,13 +70,13 @@ setup (name = NAME,
        version = VERSION,
        author      = "Assela Pathirana",
        author_email = "assela@pathirana.net",
-       description = """EPANET 2.0  calls from python""",       
+       description = """EPANET 2.0  calls from python""",
        packages = ["epanettools"],
 	   ext_modules = [epanet2_module],
        package_data={'epanettools': package_data},
        license=LICENSE,
        url=u"http://assela.pathirana.net/EPANET-Python",
        #download_url="http://swmm5-ea.googlecode.com/files/"+SETUPNAME+".zip",
-       long_description = LONGDISC, 
+       long_description = LONGDISC,
        classifiers=CLASSIFY
        )
